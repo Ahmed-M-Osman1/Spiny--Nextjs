@@ -152,10 +152,7 @@ export default function superHero({
                 </Center>
                 <Center>
                   <Link
-                    href={{
-                      pathname: `/superheros/${selectedHero[0].route}/${selectedMovie.id}`,
-                      query: JSON.stringify([2, 3]),
-                    }}
+                    href={`/superheros/${selectedHero[0].route}/${selectedMovie.id}`}
                   >
                     <Button
                       rightIcon={<ArrowForwardIcon />}
