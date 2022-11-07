@@ -15,3 +15,14 @@ export type Movie = {
 export type Parameters = {
   character: string;
 };
+
+export type MovieDetail = {
+  fullTitle: string;
+  image: string;
+  releaseDate: string;
+  plot: string;
+  awards: string;
+  genres: string;
+  imDbRating: string;
+  imDbRatingVotes: string;
+};

@@ -19,7 +19,7 @@ export default function SelectionCard({
 }) {
   return (
     <Center py={12}>
-      <Link href={`${link}`}>
+      <Link href={`${link}`} passHref>
         <Box
           role={'group'}
           p={6}

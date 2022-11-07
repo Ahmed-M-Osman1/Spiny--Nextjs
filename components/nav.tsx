@@ -18,24 +18,8 @@ import {
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
-const NavLink = ({ children }: { children: ReactNode }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={'md'}
-    _hover={{
-      textDecoration: 'none',
-      bg: useColorModeValue('gray.200', 'gray.700'),
-    }}
-    href={'#'}
-  >
-    {children}
-  </Link>
-);
-
 export default function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -44,7 +28,7 @@ export default function Nav() {
           alignItems={'center'}
           justifyContent={'space-between'}
         >
-          <Box>Logo</Box>
+          <Box>Spiny - Get Suggested</Box>
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
@@ -60,32 +44,28 @@ export default function Nav() {
                   cursor={'pointer'}
                   minW={0}
                 >
-                  <Avatar
-                    size={'sm'}
-                    src={
-                      'https://avatars.dicebear.com/api/male/username.svg'
-                    }
-                  />
+                  <Avatar size={'sm'} src={'/personal.jpg'} />
                 </MenuButton>
                 <MenuList alignItems={'center'}>
                   <br />
                   <Center>
-                    <Avatar
-                      size={'2xl'}
-                      src={
-                        'https://avatars.dicebear.com/api/male/username.svg'
-                      }
-                    />
+                    <Avatar size={'2xl'} src={'/personal.jpg'} />
                   </Center>
                   <br />
                   <Center>
-                    <p>Username</p>
+                    <p>Ahmed M.Osman</p>
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem>Your Servers</MenuItem>
-                  <MenuItem>Account Settings</MenuItem>
-                  <MenuItem>Logout</MenuItem>
+                  <Link href="https://www.linkedin.com/in/ahmed-mosman/">
+                    <MenuItem>Go To my LinkedIn</MenuItem>
+                  </Link>
+                  <Link href="https://twitter.com/devahmedosman">
+                    <MenuItem>Go To my Twitter</MenuItem>
+                  </Link>
+                  <Link href="https://www.facebook.com/ahmed.osman93/">
+                    <MenuItem>Go To my Facebook</MenuItem>
+                  </Link>
                 </MenuList>
               </Menu>
             </Stack>

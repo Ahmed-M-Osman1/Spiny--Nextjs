@@ -22,6 +22,7 @@ import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Character, Movie, Parameters } from '../../../helper/types';
 import { generateRandomNumber } from '../../../helper/generateRandom';
 import SelectedMovieCard from '../../../components/selectedMovieCard';
+import { apiKey } from '../../../api/apiKey';
 
 // ServerSide rendering: (To show that I'm able to use serverSide rendering)
 export const getStaticPaths = async () => {
@@ -43,7 +44,7 @@ export const getStaticProps = async ({
   );
   let apiResponse: Array<object> = [];
   await apiInstance
-    .get(`/SearchTitle/k_4rgq7u85/${selectedHero[0].route}`)
+    .get(`/SearchTitle/${apiKey}/${selectedHero[0].route}`)
     .then((response) => {
       if (response.data) {
         apiResponse = response.data.results;
@@ -66,7 +67,7 @@ export default function superHero({
 }: {
   allMovies: Array<Movie>;
   selectedHero: Array<Character>;
-}) {
+}): JSX.Element {
   // use Local state. No need for redux (actually I did use Redux in RN so It will be just a repeat - It will be more challenging to use local state.)
   const [selectedMovie, setSelectedMovie] = useState<Movie>({
     title: '',
@@ -96,43 +97,33 @@ export default function superHero({
           py={{ base: 18, md: 24 }}
         >
           <Stack spacing={{ base: 6, md: 10 }}>
-            <SelectedMovieCard selectedMovie={selectedMovie} />
-            <Center>
-              <Link
-                href={`/superheros/${selectedHero[0].route}/${selectedMovie.id}`}
-              >
-                <Button
-                  rightIcon={<ArrowForwardIcon />}
-                  colorScheme="teal"
-                  variant="outline"
-                >
-                  See Movie Details
-                </Button>
-              </Link>
-            </Center>
+            <SelectedMovieCard
+              selectedMovie={selectedMovie}
+              selectedHero={selectedHero[0]}
+            />
+
             <Center>
               <Button
                 rightIcon={<ArrowForwardIcon />}
-                colorScheme="teal"
+                colorScheme="red"
                 variant="outline"
                 onClick={handleSelectedMovie}
+                color={'red'}
               >
                 Get Anther Random movie for the same Champion
               </Button>
             </Center>
           </Stack>
-          <Flex>
-            <Image
-              rounded={'md'}
-              alt={'Movie image'}
-              src={selectedMovie.image}
-              fit={'cover'}
-              align={'center'}
-              max-height={'100%'}
-              max-width={'100%'}
-              h={{ base: '100%', sm: '400px', lg: '500px' }}
-            />
-          </Flex>
+          <Image
+            rounded={'md'}
+            alt={'Movie image'}
+            src={selectedMovie.image}
+            fit={'cover'}
+            align={'center'}
+            max-height={'100%'}
+            max-width={'100%'}
+            w={{ base: '100%', sm: '300px', lg: '400px' }}
+          />
         </SimpleGrid>
       </Container>
       <Center>
