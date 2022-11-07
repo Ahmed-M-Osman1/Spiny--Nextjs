@@ -15,9 +15,12 @@ There is Two way:
 
 ### Important: Project run on port 3000.
 
-## Can't See the Project on your device? No problem. HERE IS HOW IT LOOKS:
+## 🧑‍🦯 Can't See the Project on your device? No problem. HERE IS HOW IT LOOKS:
 
-### GIF PREVEIW:
+### 🖼️ PREVEIW:
+
+
+https://user-images.githubusercontent.com/64021350/200406149-132a5c45-f44d-4c54-9c04-d29f44bbf831.mp4
 
 
 # ❤️ Enjoy ❤️
