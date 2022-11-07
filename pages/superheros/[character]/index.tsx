@@ -17,10 +17,11 @@ import {
   Button,
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import SimilerMoviesCard from '../../../components/similerMoviesCard';
+import SimilarMoviesCard from '../../../components/similerMoviesCard';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { Character, Movie, Parameters } from '../../../helper/types';
 import { generateRandomNumber } from '../../../helper/generateRandom';
+import SelectedMovieCard from '../../../components/selectedMovieCard';
 
 // ServerSide rendering: (To show that I'm able to use serverSide rendering)
 export const getStaticPaths = async () => {
@@ -53,27 +54,36 @@ export const getStaticProps = async ({
     });
   return {
     props: {
-      result: apiResponse,
+      allMovies: apiResponse,
       selectedHero: selectedHero,
     },
   };
 };
 
 export default function superHero({
-  result,
+  allMovies,
   selectedHero,
 }: {
-  result: Array<Movie>;
+  allMovies: Array<Movie>;
   selectedHero: Array<Character>;
 }) {
-  const [selectedMovie, setSelectedMovie] = useState<Movie>({});
+  // use Local state. No need for redux (actually I did use Redux in RN so It will be just a repeat - It will be more challenging to use local state.)
+  const [selectedMovie, setSelectedMovie] = useState<Movie>({
+    title: '',
+    description: '',
+    id: 0,
+    image: '',
+    resultType: '',
+  });
+
   useEffect(() => {
     handleSelectedMovie();
   }, []);
 
   const handleSelectedMovie = () =>
+    // generate a random index to display movie. Save server calls.
     setSelectedMovie(
-      result[generateRandomNumber(0, result.length - 1)]
+      allMovies[generateRandomNumber(0, allMovies.length - 1)]
     );
 
   return (
@@ -86,65 +96,30 @@ export default function superHero({
           py={{ base: 18, md: 24 }}
         >
           <Stack spacing={{ base: 6, md: 10 }}>
-            <Box as={'header'}>
-              <Box
-                bg={useColorModeValue('white', 'gray.800')}
-                borderWidth="1px"
-                rounded="lg"
-                shadow="lg"
-                position="relative"
-                alignSelf={'center'}
-                justifyContent={'center'}
-                max-height={'100%'}
-                max-width={'100%'}
-                h={{ base: '100%', sm: '400px', lg: '500px' }}
+            <SelectedMovieCard selectedMovie={selectedMovie} />
+            <Center>
+              <Link
+                href={`/superheros/${selectedHero[0].route}/${selectedMovie.id}`}
               >
-                <Center>
-                  <Heading
-                    lineHeight={1.1}
-                    fontWeight={600}
-                    fontSize={{ base: '2xl', sm: '3xl', lg: '4xl' }}
-                  >
-                    For This Champion we choose:
-                  </Heading>
-                </Center>
-                <Center>
-                  <Heading
-                    lineHeight={1.1}
-                    fontWeight={600}
-                    fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}
-                  >
-                    {selectedMovie.title}
-                  </Heading>
-                </Center>
-                <Center>
-                  <Text>{selectedMovie.description}</Text>
-                </Center>
-                <Center>
-                  <Link
-                    href={`/superheros/${selectedHero[0].route}/${selectedMovie.id}`}
-                  >
-                    <Button
-                      rightIcon={<ArrowForwardIcon />}
-                      colorScheme="teal"
-                      variant="outline"
-                    >
-                      See Movie Details
-                    </Button>
-                  </Link>
-                </Center>
-                <Center>
-                  <Button
-                    rightIcon={<ArrowForwardIcon />}
-                    colorScheme="teal"
-                    variant="outline"
-                    onClick={handleSelectedMovie}
-                  >
-                    Get Anther Random movie for the same Champion
-                  </Button>
-                </Center>
-              </Box>
-            </Box>
+                <Button
+                  rightIcon={<ArrowForwardIcon />}
+                  colorScheme="teal"
+                  variant="outline"
+                >
+                  See Movie Details
+                </Button>
+              </Link>
+            </Center>
+            <Center>
+              <Button
+                rightIcon={<ArrowForwardIcon />}
+                colorScheme="teal"
+                variant="outline"
+                onClick={handleSelectedMovie}
+              >
+                Get Anther Random movie for the same Champion
+              </Button>
+            </Center>
           </Stack>
           <Flex>
             <Image
@@ -170,14 +145,10 @@ export default function superHero({
         </Heading>
       </Center>
       <div className={styles.gridSelection}>
-        {result.map((movie, index) => (
-          <SimilerMoviesCard key={index} {...movie} />
+        {allMovies.map((movie, index) => (
+          <SimilarMoviesCard key={index} {...movie} />
         ))}
       </div>
-      {/* title: {selectedMovie.title}, description:{' '}
-      {selectedMovie.description}, id: {selectedMovie.id}, image:{' '}
-      {selectedMovie.image}, */}
-      {/* <button onClick={handleSelectedMovie}>click me</button> */}
     </div>
   );
 }
