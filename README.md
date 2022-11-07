@@ -3,10 +3,10 @@
 ## Welcome to Spiny app. A NextJS WEB-APP.
 
 ## 🔔 What is Spiny? 
-
 Spiny is a `NextJS` web-app. It's written in `TS` and was build with alot of ❤️.
 
-## LINK FOR LIVE REVIEW: https://spiny.vercel.app/
+## 🔗 LINK FOR LIVE REVIEW: 
+https://spiny.vercel.app/
 
 ## 🧪 How to use it on 📱 IOS and 📱 Android mobiles.?
 
