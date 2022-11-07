@@ -2,6 +2,8 @@ import apiInstance from '../../../api/apiInstance';
 import { characters } from '../../../api/characters';
 import React, { useState, useEffect } from 'react';
 import Nav from '../../../components/nav';
+import styles from '../../../styles/Home.module.css';
+
 import {
   Box,
   chakra,
@@ -11,7 +13,7 @@ import {
   Image,
   Flex,
   VStack,
-  Button,
+  Center,
   Heading,
   SimpleGrid,
   StackDivider,
@@ -20,6 +22,9 @@ import {
   List,
   ListItem,
 } from '@chakra-ui/react';
+import HerosCard from '../../../components/herosCard';
+import Link from 'next/link';
+import SimilerMoviesCard from '../../../components/similerMoviesCard';
 
 type Movie = {
   title: string;
@@ -210,14 +215,27 @@ export default function superHero(props: {
                 max-width={'100%'}
                 h={{ base: '100%', sm: '400px', lg: '500px' }}
               >
-                <Heading
-                  lineHeight={1.1}
-                  fontWeight={600}
-                  fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}
-                >
-                  {selectedMovie.title}
-                </Heading>
-                <Text>{selectedMovie.description}</Text>
+                <Center>
+                  <Heading
+                    lineHeight={1.1}
+                    fontWeight={600}
+                    fontSize={{ base: '2xl', sm: '3xl', lg: '4xl' }}
+                  >
+                    For This Champion we choose:
+                  </Heading>
+                </Center>
+                <Center>
+                  <Heading
+                    lineHeight={1.1}
+                    fontWeight={600}
+                    fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}
+                  >
+                    {selectedMovie.title}
+                  </Heading>
+                </Center>
+                <Center>
+                  <Text>{selectedMovie.description}</Text>
+                </Center>
               </Box>
             </Box>
           </Stack>
@@ -235,7 +253,20 @@ export default function superHero(props: {
           </Flex>
         </SimpleGrid>
       </Container>
-
+      <Center>
+        <Heading
+          lineHeight={1.1}
+          fontWeight={600}
+          fontSize={{ base: '2xl', sm: '4xl', lg: '5xl' }}
+        >
+          Similar for this Champion
+        </Heading>
+      </Center>
+      <div className={styles.gridSelection}>
+        {result.map((movie, index) => (
+          <SimilerMoviesCard key={index} {...movie} />
+        ))}
+      </div>
       {/* title: {selectedMovie.title}, description:{' '}
       {selectedMovie.description}, id: {selectedMovie.id}, image:{' '}
       {selectedMovie.image}, */}

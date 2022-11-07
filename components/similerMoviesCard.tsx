@@ -16,14 +16,17 @@ const data = {
   numReviews: 34,
 };
 
-function HerosCard(props: {
-  title: string;
-  route: string;
+function SimilerMoviesCard(props: {
+  id: string;
+  resultType: string;
   image: string;
+  title: string;
+  description: string;
+  key: number;
 }) {
   return (
     <Flex
-      p={5}
+      p={4}
       alignItems="center"
       justifyContent="center"
       max-width="500px"
@@ -35,7 +38,7 @@ function HerosCard(props: {
           borderWidth="1px"
           rounded="lg"
           shadow="lg"
-          position="relative"
+          height="670px"
         >
           <Image
             src={props.image}
@@ -54,6 +57,7 @@ function HerosCard(props: {
               >
                 {props.title}
               </Box>
+              {props.description}
             </Flex>
           </Box>
         </Box>
@@ -62,4 +66,4 @@ function HerosCard(props: {
   );
 }
 
-export default HerosCard;
+export default SimilerMoviesCard;
