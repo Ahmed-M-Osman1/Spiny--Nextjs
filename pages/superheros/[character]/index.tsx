@@ -1,58 +1,28 @@
 import apiInstance from '../../../api/apiInstance';
-import { characters } from '../../../api/characters';
+import { characters } from '../../../helper/characters';
 import React, { useState, useEffect } from 'react';
 import Nav from '../../../components/nav';
 import styles from '../../../styles/Home.module.css';
-
 import {
   Box,
-  chakra,
   Container,
   Stack,
   Text,
   Image,
   Flex,
-  VStack,
   Center,
   Heading,
   SimpleGrid,
-  StackDivider,
   useColorModeValue,
-  VisuallyHidden,
-  List,
-  ListItem,
   Button,
 } from '@chakra-ui/react';
-import HerosCard from '../../../components/herosCard';
 import Link from 'next/link';
 import SimilerMoviesCard from '../../../components/similerMoviesCard';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
+import { Character, Movie, Parameters } from '../../../helper/types';
+import { generateRandomNumber } from '../../../helper/generateRandom';
 
-type Movie = {
-  title: string;
-  description: string;
-  id: number;
-  image: string;
-  resultType: string;
-};
-
-type Parameters = {
-  character: string;
-};
-
-type Hero = {
-  route: string;
-  title: string;
-  image: string;
-};
-
-export const generateRandomNumber = (
-  min: number,
-  max: number
-): number => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-};
-
+// ServerSide rendering: (To show that I'm able to use serverSide rendering)
 export const getStaticPaths = async () => {
   const paths: object = characters.map((character) => ({
     params: { character: character.route.toString() },
@@ -66,16 +36,16 @@ export const getStaticProps = async ({
 }: {
   params: Parameters;
 }) => {
+  // filtering Heros according to the params
   const selectedHero = characters.filter(
     (p) => p.route === params.character
   );
-  let res: Array<object> = [];
+  let apiResponse: Array<object> = [];
   await apiInstance
     .get(`/SearchTitle/k_4rgq7u85/${selectedHero[0].route}`)
     .then((response) => {
       if (response.data) {
-        res = response.data.results;
-        return res;
+        apiResponse = response.data.results;
       }
     })
     .catch((e) => {
@@ -83,7 +53,7 @@ export const getStaticProps = async ({
     });
   return {
     props: {
-      result: res,
+      result: apiResponse,
       selectedHero: selectedHero,
     },
   };
@@ -94,7 +64,7 @@ export default function superHero({
   selectedHero,
 }: {
   result: Array<Movie>;
-  selectedHero: Array<Hero>;
+  selectedHero: Array<Character>;
 }) {
   const [selectedMovie, setSelectedMovie] = useState<Movie>({});
   useEffect(() => {

@@ -1,7 +1,7 @@
 import Nav from '../../components/nav';
 import styles from '../../styles/Home.module.css';
 import HerosCard from '../../components/herosCard';
-import { characters } from '../../api/characters';
+import { characters } from '../../helper/characters';
 import Link from 'next/link';
 
 export const getStaticProps = async () => {
@@ -12,7 +12,7 @@ export const getStaticProps = async () => {
   };
 };
 
-export default function SuperHeros() {
+export default function SuperHeros(): JSX.Element {
   return (
     <div>
       <Nav />
