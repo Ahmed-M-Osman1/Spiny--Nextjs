@@ -6,7 +6,7 @@
 
 Spiny is a `NextJS` web-app. It's written in `TS` and was build with alot of ❤️.
 
-## LINK FOR LIVE REVIEW: ![WhatsApp Image 2022-11-07 at 9 17 27 PM (2)](https://spiny.vercel.app/)
+## LINK FOR LIVE REVIEW: https://spiny.vercel.app/
 
 ## 🧪 How to use it on 📱 IOS and 📱 Android mobiles.?
 
